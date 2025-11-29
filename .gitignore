@@ -1,0 +1,45 @@
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+
+# Visual Studio
+.vs/
+*.user
+*.userosscache
+*.suo
+*.cache
+*.ilk
+*.pdb
+*.log
+*.tmp
+
+# NuGet
+*.nupkg
+[Nn]u[Gg]et/
+packages/
+
+# VS Code
+.vscode/
+
+# Rider
+.idea/
+
+# OS
+Thumbs.db
+Desktop.ini
+
+# Project specific
+appsettings.Development.json
+appsettings.Local.json
+appsettings.json
+*.db
