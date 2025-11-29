@@ -1,0 +1,62 @@
+@EventAPI_HostAddress = http://localhost:5050
+
+### Health Check
+GET {{EventAPI_HostAddress}}/
+
+### LISTAR TODOS OS EVENTOS
+GET {{EventAPI_HostAddress}}/api/events
+Accept: application/json
+
+### BUSCAR EVENTO POR ID
+GET {{EventAPI_HostAddress}}/api/events/1
+Accept: application/json
+
+### CRIAR NOVO EVENTO
+POST {{EventAPI_HostAddress}}/api/events
+Content-Type: application/json
+
+{
+  "title": "Meetup .NET",
+  "description": "Encontro de desenvolvedores .NET",
+  "date": "2024-12-15T19:00:00",
+  "latitude": -23.5505,
+  "longitude": -46.6333,
+  "category": "Tecnologia"
+}
+
+### ATUALIZAR EVENTO
+PUT {{EventAPI_HostAddress}}/api/events/1
+Content-Type: application/json
+
+{
+  "title": "Meetup .NET Atualizado",
+  "description": "Encontro de desenvolvedores .NET - atualizado",
+  "date": "2024-12-20T19:00:00",
+  "latitude": -23.5505,
+  "longitude": -46.6333,
+  "category": "Tecnologia"
+}
+
+### EXCLUIR EVENTO
+DELETE {{EventAPI_HostAddress}}/api/events/1
+
+### BUSCAR EVENTOS PRÓXIMOS
+GET {{EventAPI_HostAddress}}/api/events/nearby?latitude=-23.5505&longitude=-46.6333&radius=10
+Accept: application/json
+
+### BUSCAR EVENTOS PRÓXIMOS COM RAIO MENOR
+GET {{EventAPI_HostAddress}}/api/events/nearby?latitude=-23.5505&longitude=-46.6333&radius=5
+Accept: application.json
+
+### TESTE DE VALIDAÇÃO (deve retornar erro)
+POST {{EventAPI_HostAddress}}/api/events
+Content-Type: application/json
+
+{
+  "title": "",
+  "description": "Evento sem título",
+  "date": "2020-01-01T00:00:00",
+  "latitude": -100,
+  "longitude": 200,
+  "category": ""
+}
