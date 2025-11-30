@@ -10,39 +10,40 @@ namespace EventAPI.Data.Configuration
         {
             builder.ToTable("Social_Events");
 
-            builder.HasKey(e => e.Id);
+            builder.HasKey(eventEntity => eventEntity.Id);
 
-            builder.Property(e => e.Title)
+            builder.Property(eventEntity => eventEntity.Title)
                 .IsRequired()
                 .HasMaxLength(200);
 
-            builder.Property(e => e.Description)
+            builder.Property(eventEntity => eventEntity.Description)
                 .IsRequired()
                 .HasMaxLength(1000);
 
-            builder.Property(e => e.Date)
+            builder.Property(eventEntity => eventEntity.Date)
                 .IsRequired();
 
-            builder.Property(e => e.Latitude)
+            builder.Property(eventEntity => eventEntity.Latitude)
                 .IsRequired()
                 .HasColumnType("decimal(9,6)");
 
-            builder.Property(e => e.Longitude)
+            builder.Property(eventEntity => eventEntity.Longitude)
                 .IsRequired()
                 .HasColumnType("decimal(9,6)");
 
-            builder.Property(e => e.Category)
+            builder.Property(eventEntity => eventEntity.Category)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(e => e.CreatedAt)
+            builder.Property(eventEntity => eventEntity.CreatedAt)
                 .IsRequired();
             
             //Performance indexes
-            builder.HasIndex(e => e.Category); // Category filter
-            builder.HasIndex(e => e.Date); // Date filter
+            builder.HasIndex(eventEntity => eventEntity.Category); // Category filter
+            builder.HasIndex(eventEntity => eventEntity.Date); // Date filter
 
-            builder.HasIndex(e => new { e.Latitude, e.Longitude});
+            //Geo queries
+            builder.HasIndex(eventEntity => new { eventEntity.Latitude, eventEntity.Longitude});
         } 
     }
 }
