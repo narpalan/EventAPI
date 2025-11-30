@@ -133,4 +133,4 @@ Eventos
 | GET | `/api/events/nearby` | Eventos por proximidade geográfica |
 
 ## 👨‍💻 Autor
-Thiago Fumega - Desenvolvedor Full-Stack 
+[Thiago Fumega - Desenvolvedor Full-Stack](https://www.linkedin.com/in/thiago-fumega/)
