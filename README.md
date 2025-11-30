@@ -71,4 +71,4 @@ Eventos
 | GET | `/api/events/nearby` | Eventos por proximidade geográfica |
 
 ## 👨‍💻 Autor
-Thiago Fumega 
+Thiago Fumega - Desenvolvedor Full-Stack 
