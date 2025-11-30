@@ -20,14 +20,14 @@ namespace EventAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EventDto>>> GetEvents()
         {
-            var events = await _eventService.GetAllEventsAsync();
+            var events = await _eventService.GetAllAsync();
             return Ok(events);
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<EventDto>> GetEvent(int id)
         {
-            var eventItem = await _eventService.GetEventByIdAsync(id);
+            var eventItem = await _eventService.GetByIdAsync(id);
             if (eventItem == null) return NotFound();
             return Ok(eventItem);
         }
@@ -35,14 +35,14 @@ namespace EventAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<EventDto>> CreateEvent(CreateEventDto createEventDto)
         {
-            var eventItem = await _eventService.CreateEventAsync(createEventDto);
+            var eventItem = await _eventService.CreateAsync(createEventDto);
             return CreatedAtAction(nameof(GetEvent), new { id = eventItem.Id }, eventItem);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<EventDto>> UpdateEvent(int id, CreateEventDto updateEventDto)
+        public async Task<ActionResult<EventDto>> UpdateEvent(int id, UpdateEventDto updateEventDto)
         {
-            var eventItem = await _eventService.UpdateEventAsync(id, updateEventDto);
+            var eventItem = await _eventService.UpdateAsync(id, updateEventDto);
             if (eventItem == null) return NotFound();
             return Ok(eventItem);
         }
@@ -50,7 +50,7 @@ namespace EventAPI.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteEvent(int id)
         {
-            var result = await _eventService.DeleteEventAsync(id);
+            var result = await _eventService.DeleteAsync(id);
             if (!result) return NotFound();
             return NoContent();
         }
