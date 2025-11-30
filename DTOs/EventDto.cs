@@ -22,6 +22,16 @@ namespace EventAPI.DTOs
         public string Category { get; set; } = string.Empty;
     }
 
+    public class UpdateEventDto
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
+        public DateTime Date { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
+        public string Category { get; set; } = string.Empty;
+    }
+
     public class NearbyEventsRequest
     {
         public decimal Latitude { get; set; }

@@ -1,74 +1,64 @@
-using Microsoft.EntityFrameworkCore;
 using AutoMapper;
-using EventAPI.Data;
+using EventAPI.Data.Repositories;
 using EventAPI.Models;
 using EventAPI.DTOs;
-using EventAPI.Helpers;
 
 namespace EventAPI.Services
 {
     public class EventService : IEventService
     {
-        private readonly EventContext _context;
+        private readonly IEventRepository _eventRepository;
         private readonly IMapper _mapper;
         private readonly ILogger<EventService> _logger;
 
-        public EventService(EventContext context, IMapper mapper, ILogger<EventService> logger)
+        public EventService(IEventRepository eventRepository, IMapper mapper, ILogger<EventService> logger)
         {
-            _context = context;
+            _eventRepository = eventRepository;
             _mapper = mapper;
             _logger = logger;
         }
 
-        public async Task<IEnumerable<EventDto>> GetAllEventsAsync()
+        public async Task<IEnumerable<EventDto>> GetAllAsync()
         {
             _logger.LogInformation("Buscando todos os eventos");
-            var events = await _context.Events.ToListAsync();
+            var events = await _eventRepository.GetAllAsync();
             return _mapper.Map<IEnumerable<EventDto>>(events);
         }
 
-        public async Task<EventDto?> GetEventByIdAsync(int id)
+        public async Task<EventDto?> GetByIdAsync(int id)
         {
             _logger.LogInformation("Buscando evento com ID: {Id}", id);
-            var eventItem = await _context.Events.FindAsync(id);
+            var eventItem = await _eventRepository.GetByIdAsync(id);
             return eventItem == null ? null : _mapper.Map<EventDto>(eventItem);
         }
 
-        public async Task<EventDto> CreateEventAsync(CreateEventDto createEventDto)
+        public async Task<EventDto> CreateAsync(CreateEventDto createEventDto)
         {
             _logger.LogInformation("Criando novo evento: {Title}", createEventDto.Title);
             
             var eventItem = _mapper.Map<Event>(createEventDto);
-            _context.Events.Add(eventItem);
-            await _context.SaveChangesAsync();
+            var createdEvent = await _eventRepository.AddAsync(eventItem);
             
-            return _mapper.Map<EventDto>(eventItem);
+            return _mapper.Map<EventDto>(createdEvent);
         }
 
-        public async Task<EventDto?> UpdateEventAsync(int id, CreateEventDto updateEventDto)
+        public async Task<EventDto?> UpdateAsync(int id, UpdateEventDto updateEventDto)
         {
             _logger.LogInformation("Atualizando evento com ID: {Id}", id);
             
-            var eventItem = await _context.Events.FindAsync(id);
-            if (eventItem == null) return null;
+            var existingEvent = await _eventRepository.GetByIdAsync(id);
+            if (existingEvent == null) return null;
 
-            _mapper.Map(updateEventDto, eventItem);
-            await _context.SaveChangesAsync();
+            _mapper.Map(updateEventDto, existingEvent);
+            var updatedEvent = await _eventRepository.UpdateAsync(existingEvent);
             
-            return _mapper.Map<EventDto>(eventItem);
+            return updatedEvent == null ? null : _mapper.Map<EventDto>(updatedEvent);
         }
 
-        public async Task<bool> DeleteEventAsync(int id)
+        public async Task<bool> DeleteAsync(int id)
         {
             _logger.LogInformation("Excluindo evento com ID: {Id}", id);
-            
-            var eventItem = await _context.Events.FindAsync(id);
-            if (eventItem == null) return false;
-
-            _context.Events.Remove(eventItem);
-            await _context.SaveChangesAsync();
-            
-            return true;
+            return await _eventRepository.DeleteAsync(id);
         }
 
         public async Task<IEnumerable<EventDto>> GetNearbyEventsAsync(decimal latitude, decimal longitude, decimal radiusKm)
@@ -76,12 +66,8 @@ namespace EventAPI.Services
             _logger.LogInformation("Buscando eventos próximos a {Lat}, {Lon} com raio de {Radius}km", 
                 latitude, longitude, radiusKm);
 
-            var events = await _context.Events.ToListAsync();
-            var nearbyEvents = events.Where(e => 
-                GeoHelper.CalculateDistance(latitude, longitude, e.Latitude, e.Longitude) <= (double)radiusKm
-            );
-
-            return _mapper.Map<IEnumerable<EventDto>>(nearbyEvents);
+            var events = await _eventRepository.GetNearbyEventsAsync(latitude, longitude, (double)radiusKm);
+            return _mapper.Map<IEnumerable<EventDto>>(events);
         }
     }
 }
