@@ -42,7 +42,7 @@ namespace EventAPI.Data.Configuration
             builder.HasIndex(e => e.Category); // Category filter
             builder.HasIndex(e => e.Date); // Date filter
 
-            builder.HasIndex(e => new { e.Latitude, e.Longitude})
+            builder.HasIndex(e => new { e.Latitude, e.Longitude});
         } 
     }
 }
