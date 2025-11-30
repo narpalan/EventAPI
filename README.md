@@ -4,15 +4,77 @@ API REST para gerenciamento de eventos, públicos ou privados, com funcionalidad
 
 ## 🚀 Funcionalidades
 
-- ✅ **CRUD Completo** de eventos
-- 🌍 **Geoprocessamento** - Busca de eventos por proximidade geográfica
-- 📍 **Geocodificação** - Conversão de endereços em coordenadas (OpenStreetMap Nominatim)
-- 🗺️ **Integração com Mapas** - Visualização em mapas interativos
-- 🔍 **Filtros Avançados** - Por data, localização, categoria
-- 📄 **Paginação** de resultados
-- ✅ **Validações** com FluentValidation
-- 🐳 **Docker Ready** - Pronta para containerização
-- 📚 **Documentação Interativa** com Swagger/OpenAPI
+### 📋 Gestão de Eventos
+- ✅ **CRUD Completo** de eventos com Entity Framework Core
+- ✅ **Validações Robustas** - FluentValidation com regras customizadas
+- ✅ **Arquitetura em Camadas** - Repository Pattern + Service Pattern
+- ✅ **Migrações Estruturais** - Versionamento de schema com EF Core Migrations
+- ✅ **Logging Estruturado** - Para melhor rastreamento em produção utilizando ILogger
+
+### 🌍 Geoprocessamento
+- ✅ **Busca por Proximidade** - Algoritmo de Haversine para eventos próximos
+- ✅ **Modelo Geoespacial** - Coordenadas com precisão decimal(9,6) e índices otimizados
+- ✅ **Cálculos de Distância** - Implementação eficiente para raios personalizados
+
+### 🔧 Arquitetura & DevOps
+- ✅ **Injeção de Dependência** - Configuração modular e testável
+- ✅ **Documentação Interativa** - Swagger/OpenAPI com exemplos práticos
+- ✅ **Configuração Multi-ambiente** - Desenvolvimento vs Produção
+- ✅ **Entity Framework Core** - ORM com suporte a MariaDB/MySQL
+
+## 🚧 Em Desenvolvimento
+
+### 🛡️ Preparação para Produção
+- 🔄 **Health Checks** - Endpoints `/health` e `/ready` para monitoramento
+- 🔄 **Middleware de Segurança** - Headers de segurança e tratamento global de erros
+- 🔄 **Configuração Railway** - Variáveis de ambiente e deploy optimization
+
+### 📍 Serviços de Localização
+- 🔄 **Geocodificação** - Integração com OpenStreetMap Nominatim
+- 🔄 **API de Mapas** - Preparação para Leaflet + OpenStreetMap
+- 🔄 **Validação de Endereços** - Serviço de geocodificação reversa
+
+### ⚡ Performance & Otimização
+- 🔄 **Cache em Memória** - Para consultas frequentes
+- 🔄 **Compressão de Respostas** - Gzip para melhor performance
+- 🔄 **Otimização de Consultas** - Query profiling e índices
+
+## 🧭 Funcionalidades Futuras
+
+### 👥 Sistema de Usuários & Autenticação
+- 🔜 **CRUD de Usuários** - Gestão de perfis e autenticação
+- 🔜 **Autorização JWT** - Controle de acesso baseado em roles
+- 🔜 **Sistema de Favoritos** - Eventos favoritados e lista pessoal
+- 🔜 **Perfis Personalizados** - Preferências e histórico
+
+### 🔔 Notificações & Monitoramento
+- 🔜 **Sistema de WatchPoints** - Pontos de vigilância para monitoramento
+- 🔜 **Notificações em Tempo Real** - WebSocket para alertas imediatos
+- 🔜 **Notificações por E-mail** - Alertas periódicos e resumos
+- 🔜 **Sistema de Observação** - Monitoramento de áreas específicas
+
+### 🗺️ Geoprocessamento Avançado
+- 🔜 **Geofencing Avançado** - Polígonos complexos para áreas de vigilância
+- 🔜 **Heatmaps Interativos** - Visualização de densidade de eventos
+- 🔜 **Rotas e Direções** - Cálculo de rotas para eventos
+- 🔜 **Geocodificação em Lote** - Processamento múltiplo de endereços
+
+### 📊 Análise & Engajamento
+- 🔜 **Sistema de Reviews/Avaliações** - Feedback e ratings para eventos
+- 🔜 **Relatórios e Estatísticas** - Analytics e métricas de uso
+- 🔜 **Sistema de Recomendação** - Algoritmo baseado em comportamento
+- 🔜 **Compartilhamento Social** - Integração com redes sociais
+
+### 🐳 Infraestrutura & Escala
+- 🔜 **Dockerização** - Containerização completa da aplicação
+- 🔜 **Paginação Avançada** - Cursor-based pagination para grandes datasets
+- 🔜 **API Versioning** - Controle de versões da API
+- 🔜 **Rate Limiting** - Limitação de requisições por usuário
+
+### 🔍 Buscas & Filtros
+- 🔜 **Filtros Avançados** - Por data, categoria, preço, etc.
+- 🔜 **Busca Full-Text** - Pesquisa semântica em títulos e descrições
+- 🔜 **Salvar Pesquisas** - Histórico e pesquisas favoritas
 
 ## 🛠️ Tecnologias
 
