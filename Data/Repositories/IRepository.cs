@@ -1,5 +1,3 @@
-using System.Linq.Expressions;
-
 namespace EventAPI.Data.Repositories
 {
     public interface IRepository<T> where T: class
