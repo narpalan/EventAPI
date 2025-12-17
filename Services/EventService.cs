@@ -61,13 +61,23 @@ namespace EventAPI.Services
             return await _eventRepository.DeleteAsync(id);
         }
 
-        public async Task<IEnumerable<EventDto>> GetNearbyEventsAsync(decimal latitude, decimal longitude, decimal radiusKm)
+        public async Task<IEnumerable<EventDto>> GetNearbyEventsAsync(
+            decimal latitude, 
+            decimal longitude, 
+            decimal radiusKm)
         {
-            _logger.LogInformation("Buscando eventos próximos a {Lat}, {Lon} com raio de {Radius}km", 
+            _logger.LogInformation(
+                "Buscando eventos próximos a ({Latitude}, {Longitude}) com raio de {RadiusKm}km", 
                 latitude, longitude, radiusKm);
 
-            var events = await _eventRepository.GetNearbyEventsAsync(latitude, longitude, (double)radiusKm);
-            return _mapper.Map<IEnumerable<EventDto>>(events);
+            var events = await _eventRepository.GetNearbyEventsAsync(
+            latitude, longitude, (double)radiusKm);
+    
+            _logger.LogInformation(
+                "Encontrados {EventCount} eventos no raio especificado", 
+                events.Count());
+    
+        return _mapper.Map<IEnumerable<EventDto>>(events);
         }
     }
 }
