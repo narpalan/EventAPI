@@ -3,6 +3,7 @@ using EventAPI.Data;
 using EventAPI.Services;
 using EventAPI.Validators;
 using FluentValidation;
+using EventAPI.Data.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,9 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 // FluentValidation
 builder.Services.AddValidatorsFromAssemblyContaining<CreateEventValidator>();
+
+// Repositories
+builder.Services.AddScoped<IEventRepository, EventRepository>();
 
 // Services
 builder.Services.AddScoped<IEventService, EventService>();
