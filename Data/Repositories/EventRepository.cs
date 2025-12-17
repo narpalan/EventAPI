@@ -1,16 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using EventAPI.Models;
 using EventAPI.Helpers;
+using EventAPI.Services;
 
 namespace EventAPI.Data.Repositories
 {
     public class EventRepository : IEventRepository
     {
         private readonly EventContext _context;
+        private readonly IGeoCalculator _geoCalculator;
 
-        public EventRepository(EventContext context)
+        public EventRepository(EventContext context, IGeoCalculator geoCalculator)
         {
             _context = context;
+            _geoCalculator = geoCalculator;
         }
 
         public async Task<IEnumerable<Event>> GetAllAsync()
@@ -61,12 +64,19 @@ namespace EventAPI.Data.Repositories
             return await _context.Events.AnyAsync(e => e.Id == id);
         }
 
-        public async Task<IEnumerable<Event>> GetNearbyEventsAsync(decimal latitude, decimal longitude, double radiusKm)
+         public async Task<IEnumerable<Event>> GetNearbyEventsAsync(
+            decimal latitude, 
+            decimal longitude, 
+            double radiusKm)
         {
             var events = await _context.Events.ToListAsync();
+            
             var nearbyEvents = events.Where(e => 
-                GeoHelper.CalculateDistance(latitude, longitude, e.Latitude, e.Longitude) <= radiusKm
+                _geoCalculator.CalculateDistance(
+                    latitude, longitude, 
+                    e.Latitude, e.Longitude) <= radiusKm
             );
+            
             return nearbyEvents;
         }
     }
