@@ -31,6 +31,7 @@ builder.Services.AddValidatorsFromAssemblyContaining<CreateEventValidator>();
 
 // Services
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IGeoCalculator, HaversineGeoCalculator>();
 
 // Logging
 builder.Services.AddLogging();
