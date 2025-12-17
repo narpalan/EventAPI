@@ -6,8 +6,12 @@ using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+//Set up connection string
 
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL")
+                    ?? builder.Configuration.GetConnectionString("DefaultConnection");
+
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
